@@ -1,10 +1,11 @@
 import "./App.css";
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
-import Dashboard from "./pages/Dashboard";
+import Dashboard from "./pages/dashboard/Index";
 import Header from "./components/Header";
 import React from "react";
 import store from "./store/store";
 import { Provider } from "react-redux";
+import Chatboard from "./pages/Chatboard";
 
 
 function App() {
@@ -23,8 +24,8 @@ function App() {
       <Header />
       <Router>
         <Routes>
-        <Route path="/" element={<><h1 className="text-2xl font-bold mb-4">List of Items</h1><Dashboard items={items} /></>} />
-        <Route path="/dashboard" element={<Dashboard />} />
+        <Route path="/" element={<><Dashboard items={items} /></>} />
+        <Route path="/chat" element={<><Chatboard items={items} /></>} />
         </Routes>
       </Router>
     </Provider>

@@ -1,11 +1,11 @@
 import React, { useRef, useState } from "react";
 import "./Chat.css";
-import { initializeApp } from "firebase/app";
+import firebase from "firebase/compat/app";
 import CenteredButtons from "../components/CenteredButtons";
-// import "firebase/firestore";
-// import "firebase/auth";
-// import { useAuthState } from "react-firebase-hooks/auth";
-// import { useCollectionData } from "react-firebase-hooks/firestore";
+import "firebase/compat/firestore";
+import "firebase/compat/auth";
+import { useAuthState } from "react-firebase-hooks/auth";
+import { useCollectionData } from "react-firebase-hooks/firestore";
 
 const firebaseConfig = {
   apiKey: "AIzaSyDURWm087oN3mEWBg4JVFDB_zpwYZyOdJ4",
@@ -17,9 +17,9 @@ const firebaseConfig = {
   measurementId: "G-6NLRH8FVSV",
 };
 
-const app = initializeApp(firebaseConfig);
-// const auth = firebase.auth();
-// const firestore = firebase.firestore();
+firebase.initializeApp(firebaseConfig);
+const auth = firebase.auth();
+const firestore = firebase.firestore();
 
 const Chat = ({ item }) => {
   const dummy = useRef();
@@ -35,12 +35,12 @@ const Chat = ({ item }) => {
 
     // const { uid, photoURL } = auth.currentUser;
 
-    // await messagesRef.add({
-    //   text: formValue,
-    //   createdAt: firebase.firestore.FieldValue.serverTimestamp(),
-    //   uid,
-    //   photoURL,
-    // });
+    await messagesRef.add({
+      text: formValue,
+      createdAt: firebase.firestore.FieldValue.serverTimestamp(),
+      // uid,
+      // photoURL,
+    });
 
     setFormValue("");
     dummy.current.scrollIntoView({ behavior: "smooth" });
@@ -49,7 +49,8 @@ const Chat = ({ item }) => {
   function ChatMessage(props) {
     const { text, uid, photoURL } = props.message;
 
-    const messageClass = uid === auth.currentUser.uid ? "sent" : "received";
+    // const messageClass = uid === auth.currentUser.uid ? "sent" : "received";
+    const messageClass = true ? "sent" : "received";
 
     return (
       <>
@@ -69,7 +70,7 @@ const Chat = ({ item }) => {
   return (
     <div className="w-full h-full p-4 bg-gray-200 overflow-auto">
       <div className="flex justify-between items-center mb-4">
-        <h2 className="text-2xl font-bold">Chat with {item.name}</h2>
+        <h2 className="text-2xl font-bold">Chat with </h2>
         <CenteredButtons className="px-4 py-2 bg-blue-500 text-white rounded">
           Book Zoom Meeting
         </CenteredButtons>

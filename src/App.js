@@ -2,6 +2,7 @@ import "./App.css";
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 import Dashboard from "./pages/Dashboard";
 import MenuBar from "./pages/Menubar";
+import Header from "./components/Header";
 
 function App() {
 
@@ -14,18 +15,15 @@ function App() {
     { name: 'Jane Doe6', image: 'https://via.placeholder.com/150' },
   ];
 
-
   return (
     <Router>
-      <div className="App">
-        <MenuBar />
-        <Routes>
-          <Route path="/" element={<><h1 className="text-2xl font-bold mb-4">List of Items</h1><Dashboard items={items} /></>} />
-          <Route path="/dashboard" element={<Dashboard />} />
-        </Routes>
-      </div>
+       <Header />
+      <Routes>
+        <Route path="/" element={<><h1 className="text-2xl font-bold mb-4">List of Items</h1><Dashboard items={items} /></>} />
+        <Route path="/dashboard" element={<Dashboard />} />
+      </Routes>
     </Router>
   );
-}
+};
 
 export default App;

@@ -1,4 +1,4 @@
-import React, { useRef, useState } from "react";
+import React, { useRef, useState, useEffect } from "react";
 import "./Chat.css";
 import firebase from "firebase/compat/app";
 import CenteredButtons from "../components/CenteredButtons";
@@ -23,23 +23,56 @@ const firestore = firebase.firestore();
 
 const Chat = ({ item }) => {
   const dummy = useRef();
-  const messagesRef = firestore.collection("messages");
-  const query = messagesRef.orderBy("createdAt").limit(25);
+  //const messagesRef = firestore.collection("messages");
+  const currentSenderId = 3;
+  const currentReceiverId = item.id;
 
-  const [messages] = useCollectionData(query, { idField: "id" });
 
+  const [messages, setMessages] = useState([]);
+  const messagesRefSenderUser = firestore.collection("users").doc(`${currentSenderId}`).collection(`${currentReceiverId}`);
+  const messagesRefReceiverUser = firestore.collection("users").doc(`${currentReceiverId}`).collection(`${currentSenderId}`);
+
+  useEffect(() => {
+    
+    const query1 = messagesRefSenderUser.get();
+    const query2 = messagesRefReceiverUser.get();
+
+    Promise.all([query1, query2])
+      .then(([query1Snapshot, query2Snapshot]) => {
+        const query1Data = query1Snapshot.docs.map((doc) => doc.data());
+        const query2Data = query2Snapshot.docs.map((doc) => doc.data());
+
+        // Merge query1Data and query2Data here
+        const mergedData = [...query1Data, ...query2Data];
+
+        // Optionally, sort the merged data by orderID
+        mergedData.sort((a, b) => a.createdAt - b.createdAt);
+
+        // Set the messages state
+        setMessages(mergedData);
+      })
+      .catch((error) => {
+        console.log("Error getting data:", error);
+      });
+  }, []); // Empty dependency array to ensure the effect runs only once
+
+
+
+
+//const [messages] = useCollectionData(query, { idField: "id" });
   const [formValue, setFormValue] = useState("");
+  console.log(messages);
 
   const sendMessage = async (e) => {
     e.preventDefault();
 
     // const { uid, photoURL } = auth.currentUser;
 
-    await messagesRef.add({
+    await messagesRefSenderUser.add({
       text: formValue,
       createdAt: firebase.firestore.FieldValue.serverTimestamp(),
-      // uid,
-      // photoURL,
+      receiverId: currentReceiverId,
+      photoURL: item.image,
     });
 
     setFormValue("");
@@ -47,10 +80,9 @@ const Chat = ({ item }) => {
   };
 
   function ChatMessage(props) {
-    const { text, uid, photoURL } = props.message;
+    const { text, receiverId, photoURL } = props.message;
 
-    // const messageClass = uid === auth.currentUser.uid ? "sent" : "received";
-    const messageClass = true ? "sent" : "received";
+    const messageClass = receiverId == currentReceiverId ? "sent" : "received";
 
     return (
       <>
@@ -70,7 +102,7 @@ const Chat = ({ item }) => {
   return (
     <div className="w-full h-full p-4 bg-gray-200 overflow-auto">
       <div className="flex justify-between items-center mb-4">
-        <h2 className="text-2xl font-bold">Chat with {item.name}</h2>
+        {item.name && <h2 className="text-2xl font-bold">Chat with </h2>}
         <button className="px-4 py-2 bg-blue-500 text-white rounded">
           Book Zoom Meeting
         </button>

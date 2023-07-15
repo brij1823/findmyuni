@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import Chat from './Chat';
 
 const Chatboard = ({ items }) => {
-  const [selectedItem, setSelectedItem] = useState(null);
+  const [selectedItem, setSelectedItem] = useState(items[0]);
 
   return (
     <div className="flex flex-col md:flex-row w-full">

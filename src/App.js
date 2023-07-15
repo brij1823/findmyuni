@@ -1,12 +1,24 @@
-import logo from "./logo.svg";
-import "./App.css";
+import React from "react";
+import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+import Dashboard from "./pages/dashboard/Index";
+import store from "./store/store";
+import { Provider } from "react-redux";
+import SearchStudents from "./pages/search-students";
+import Header from "./components/Header";
 
-function App() {
+const App = () => {
   return (
-    <div>
-      <h1 className="text-3xl font-bold underline">Hello world!</h1>
-    </div>
+    <Provider store={store}>
+      <Router>
+        <Header/>
+        <Routes>
+          <Route path="/" element={<Dashboard />} />
+          <Route path="/chat" element={<Dashboard />} />
+          <Route path="/search-students" element={<SearchStudents/>} />
+        </Routes>
+      </Router>
+    </Provider>
   );
-}
+};
 
 export default App;

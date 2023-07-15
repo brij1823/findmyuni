@@ -1,6 +1,7 @@
 import React, { useRef, useState } from "react";
 import "./Chat.css";
 import { initializeApp } from "firebase/app";
+import CenteredButtons from "../components/CenteredButtons";
 // import "firebase/firestore";
 // import "firebase/auth";
 // import { useAuthState } from "react-firebase-hooks/auth";
@@ -66,23 +67,31 @@ const Chat = ({ item }) => {
   }
 
   return (
-    <>
-      <main>
-        {messages &&
-          messages.map((msg) => <ChatMessage key={msg.id} message={msg} />)}
-        <span ref={dummy}></span>
-      </main>
-      <form onSubmit={sendMessage}>
-        <input
-          value={formValue}
-          onChange={(e) => setFormValue(e.target.value)}
-          placeholder="say something nice"
-        />
-        <button type="submit" disabled={!formValue}>
-          🕊️
-        </button>
-      </form>
-    </>
+    <div className="w-full h-full p-4 bg-gray-200 overflow-auto">
+      <div className="flex justify-between items-center mb-4">
+        <h2 className="text-2xl font-bold">Chat with {item.name}</h2>
+        <CenteredButtons className="px-4 py-2 bg-blue-500 text-white rounded">
+          Book Zoom Meeting
+        </CenteredButtons>
+      </div>
+      <>
+        <main>
+          {messages &&
+            messages.map((msg) => <ChatMessage key={msg.id} message={msg} />)}
+          <span ref={dummy}></span>
+        </main>
+        <form onSubmit={sendMessage}>
+          <input
+            value={formValue}
+            onChange={(e) => setFormValue(e.target.value)}
+            placeholder="say something nice"
+          />
+          <button type="submit" disabled={!formValue}>
+            🕊️
+          </button>
+        </form>
+      </>
+    </div>
   );
 };
 

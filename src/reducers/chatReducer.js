@@ -1,29 +1,22 @@
 const initialState = []
 
-const complaintReducer = (state = initialState, action) => {
+const chatReducer = (state = initialState, action) => {
   switch (action.type) {
-    case 'GET_COMPLAINTS':
+    case 'GET_CHATS':
       return {
         ...state,
-        complaintsDataError: action.error ? action.error : null,
-        complaintsDataSuccess: action.subtype === 'success',
-        complaintsDataLoading: action.subtype === 'loading',
-        complaintsData:
+        chatDataError: action.error ? action.error : null,
+        chatDataSuccess: action.subtype === 'success',
+        chatDataLoading: action.subtype === 'loading',
+        chatData:
           action.subtype === 'success'
-            ? action.complaintsData
-            : state.complaintsData,
+            ? action.chatData
+            : state.chatData,
       }
 
-    case 'UPDATE_COMPLAINT':
-      return {
-        ...state,
-        updateComplaintError: action.error ? action.error : null,
-        updateComplaintSuccess: action.subtype === 'success',
-        updateComplaintLoading: action.subtype === 'loading',
-      }
     default:
       return state
   }
 }
 
-export default complaintReducer
+export default chatReducer

@@ -1,9 +1,11 @@
 import "./App.css";
 import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
-import Header from "./components/Header";
+import React from "react";
 import Dashboard from "./pages/dashboard/Index";
+import Header from "./components/Header";
 import store from "./store/store";
 import { Provider } from "react-redux";
+import Chatboard from "./pages/Chatboard";
 import SearchStudents from "./pages/search-students";
 
 function App() {
@@ -18,11 +20,11 @@ function App() {
 
   return (
     <Provider store={store}>
+      <Header />
       <Router>
-        <Header />
         <Routes>
           <Route path="/" element={<Dashboard />} />
-          <Route path="/chat" element={<Dashboard />} />
+          <Route path="/chat" element={<Chatboard items={items} />} />
           <Route path="/search-students" element={<SearchStudents />} />
         </Routes>
       </Router>

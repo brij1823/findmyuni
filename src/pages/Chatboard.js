@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import Chat from './Chat';
 
-const Dashboard = ({ items }) => {
+const Chatboard = ({ items }) => {
   const [selectedItem, setSelectedItem] = useState(null);
 
   return (
@@ -31,4 +31,4 @@ const Dashboard = ({ items }) => {
   );
 };
 
-export default Dashboard;
+export default Chatboard;

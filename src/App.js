@@ -1,11 +1,13 @@
 import "./App.css";
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
+import React from "react";
 import Dashboard from "./pages/dashboard/Index";
 import Header from "./components/Header";
-import React from "react";
 import store from "./store/store";
 import { Provider } from "react-redux";
 import Chatboard from "./pages/Chatboard";
+import SearchStudents from "./pages/search-students";
+
 
 
 function App() {
@@ -18,14 +20,15 @@ function App() {
     { name: 'John Doe5', image: 'https://via.placeholder.com/150' },
     { name: 'Jane Doe6', image: 'https://via.placeholder.com/150' },
   ];
-
+  
   return (
     <Provider store={store}>
       <Header />
       <Router>
         <Routes>
-        <Route path="/" element={<><Dashboard items={items} /></>} />
-        <Route path="/chat" element={<><Chatboard items={items} /></>} />
+          <Route path="/" element={<Dashboard />} />
+          <Route path="/chat" element={<Chatboard items={items}/>} />
+          <Route path="/search-students" element={<SearchStudents/>} />
         </Routes>
       </Router>
     </Provider>

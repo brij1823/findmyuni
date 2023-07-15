@@ -1,5 +1,5 @@
 import React from 'react';
-import CenteredButtons from '../components/CenteredButtons';
+// import CenteredButtons from '../components/CenteredButtons';
 
 const Chat = ({ item }) => {
   return (

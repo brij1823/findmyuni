@@ -2,9 +2,7 @@ import { Box, Grid } from "@mui/material";
 import Mentor from "../../components/MentorCard";
 
 const SearchStudents = () => {
-
     const mentors = ["1", "2", "3", "1", "2", "3", "1", "2", "3", "1", "2", "3",]
-
     return (
         <div>
             <Box sx={{ p: 5 }}>
@@ -14,16 +12,13 @@ const SearchStudents = () => {
                             return (
                                 <Grid item>
                                     <Mentor />
-
                                 </Grid>
                             )
                         })
                     }
                 </Grid>
             </Box>
-
         </div>
-
     )
 }
 

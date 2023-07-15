@@ -64,7 +64,7 @@ export function getAllUsers() {
             resolve(result)
           })
           .catch((error) => {
-            console.log('complaints error', error)
+            console.log('users error', error)
             rejects(error)
           })
       } catch (e) {

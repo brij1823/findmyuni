@@ -10,7 +10,8 @@ const CenteredButtons = () => {
   return (
     <div className={`flex items-center justify-center min-h-screen pt-${headerHeight}`}>
       <div className="flex items-center space-x-4">
-        <button className="bg-blue-500 hover:bg-blue-600 text-white font-semibold py-2 px-4 rounded">
+        <button className="bg-blue-500 hover:bg-blue-600 text-white font-semibold py-2 px-4 rounded" 
+         onClick={() => navigate('/chat')}>
           {EXISTING_STUDENT}
         </button>
         <button className="bg-gray-700 hover:bg-gray-800 text-white font-semibold py-2 px-4 rounded" onClick={() => {

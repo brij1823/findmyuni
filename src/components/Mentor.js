@@ -1,6 +1,7 @@
 import { Box, Divider, Grid, Typography } from "@mui/material"
 
-const Mentor = () => {
+const Mentor = (props) => {
+    const { mentor } = props
     return (
         <Box sx={{ borderRadius: "10px", height: 250, width: 300, boxShadow: 5, }} >
             <Grid direction="column">
@@ -9,7 +10,7 @@ const Mentor = () => {
                         <Box sx={{ px: 2, py: 1 }}>
                             <Grid container direction="row" justifyContent="space-between" alignItems="center">
                                 <Grid item>
-                                    Brij Patel
+                                    {mentor.first_name}
                                 </Grid>
                                 <Grid item>
                                     <Box
@@ -33,12 +34,12 @@ const Mentor = () => {
 
                     <Grid item>
                         <Typography>
-                            University of Alberta
+                            {mentor.university_name}
                         </Typography>
                     </Grid>
                     <Grid item>
                         <Typography fontSize={14}>
-                            Master of Computer Science
+                            {mentor.course_name}
                         </Typography>
                     </Grid>
 
